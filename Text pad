@@ -6,4 +6,9 @@ Non Relational - NoSQL - No rows/columns - Has graphs, JSON(javascript object no
 
 Table and Keys:
 Primary key - An attribute that represents the row - Basically, a column name that is unique
+Foreign key - Stores primary key of 1 table in another table - Basically, a table has 2 primary keys but one is foreign -Acts as a Linkage
+Composite key - Needs 2 attributes - 2 keys together are needed so as to uniquely identify - The keys separately have redundant info but together make sense
+
+
+
 
