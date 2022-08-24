@@ -1,0 +1,9 @@
+DBMS - A software system so we can perform CRUD - Create Read Update Delete operations
+
+2 types:
+Relational - SQL - Has rows and columns - ORACLE, MySQL, PostgreSQL, mariaDB
+Non Relational - NoSQL - No rows/columns - Has graphs, JSON(javascript object notation), XML - MpngoDB, dynamoDB, Apache cassandra, firebase
+
+Table and Keys:
+Primary key - An attribute that represents the row - Basically, a column name that is unique
+
