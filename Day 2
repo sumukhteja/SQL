@@ -18,6 +18,36 @@ Setting up MySQL Community Server on the desktop:
 Go to https://dev.mysql.com/downloads/mysql/ -> click on dowload page for installer MSI
 Download web isntall -> Custom install -> In select products screen -> Open MySQL server -> My SQL server 5.7 64 bit push to right ->
 In applications -> My SQL shell -> Add 64 bit version push to the right
-Open MySQL 5.7 command line from START -> Enter password -> create database girrafe
-Download th PopSQL text editor for MySQL
+Open MySQL 5.7 command line from START -> Enter password -> Give command: create database giraffe;
+Download, install and connect PopSQL text editor to MySQL-> Use port 3306(default) -> localhost 3306 -> giraffe -> root, password
+
+Datatypes in SQL:
+INT - whole numbers
+DECIMAL(M,N) - M=Total number of digits, N=Total number of decimals
+VARCHAR(X) - To store string of text, X=string of length 1, max can be 100
+BLOB - Binary Large Object, used for binary data, for images, 
+DATE - 'YYYY-MM-DD'
+TIMESTAMP - 'YYYY-MM-DD HH:MM:SS' etc.
+
+In giraffe database in PopSQL, write below queries:
+
+To create table-
+CREATE TABLE student(
+student_id INT PRIMARY KEY,
+name VARCHAR(20),
+major VARCHAR(20)
+);
+
+To view the created table-
+DESCRIBE student;
+
+To delete the created table-
+DROP TABLE student;
+
+To add new column into student table-
+ALTER TABLE student ADD gpa DECIMAL(3,2);
+
+To remove column from student table-
+ALTER TABLE student DROP CLOUMN gpa;
+
 
