@@ -1,0 +1,23 @@
+SQL can be used to make the RDBMS do things like:
+1. CRUD
+2. Create DB
+3. Manage DB
+4. Create Table
+5. Design table
+6. Perform Admin Tasks(decurity management, import, export)
+
+SQL is combination of 4 ->
+DQL-Data Query Lang - To perform queries
+DDL-Data Definition Lang - To define database schemas
+DCL-Data Control Lang - To control access to data in Database
+DML-Data Manipulation Lang- To insert/update/delete data from Database
+
+Query- instruction given to RDBMS to fetch the required data from the shithole of data usually in SQL cos we're doing SQL rn
+
+Setting up MySQL Community Server on the desktop:
+Go to https://dev.mysql.com/downloads/mysql/ -> click on dowload page for installer MSI
+Download web isntall -> Custom install -> In select products screen -> Open MySQL server -> My SQL server 5.7 64 bit push to right ->
+In applications -> My SQL shell -> Add 64 bit version push to the right
+Open MySQL 5.7 command line from START -> Enter password -> create database girrafe
+Download th PopSQL text editor for MySQL
+
