@@ -1,0 +1,46 @@
+create table student(
+student_id INT,
+name VARCHAR(20),
+major VARCHAR(20),
+PRIMARY KEY(student_id)
+);
+describe student;
+
+Inserting data into rows:
+INSERT INTO student VALUES(1,'jack','biology');
+
+Another way of inserting just 2 known values:(No Major is given, it will be NULL)
+INSERT INTO student(student_id, name) VALUES(1,'jack');
+
+To print all records:
+select * from student;
+
+Using DEFAULT 'xxxxx' statement:
+drop table student;
+create table student(
+student_id INT,
+name VARCHAR(20),
+major VARCHAR(20) default 'undecided',
+PRIMARY KEY(student_id)
+);
+INSERT INTO student(student_id, name) VALUES(1, 'jack');
+INSERT INTO student VALUES(2, 'jill', 'mathematics');
+INSERT INTO student VALUES(3, 'hill', 'physics');
+select * from student;
+
+Auto incrementation of student id:
+drop table student;
+create table student(
+student_id INT auto_increment,
+name VARCHAR(20),
+major VARCHAR(20) default 'undecided',
+PRIMARY KEY(student_id)
+);
+INSERT INTO student(name, major) VALUES('jack', 'biology');
+INSERT INTO student(name, major) VALUES('jill', 'mathematics');
+INSERT INTO student(name, major) VALUES('hill', 'physics');
+select * from student;
+
+To update biology to bio:
+
+
