@@ -1,0 +1,50 @@
+Prarambhaha
+
+drop table student;
+create table student(
+student_id INT auto_increment,
+name VARCHAR(20),
+major VARCHAR(20) default 'undecided',
+PRIMARY KEY(student_id)
+);
+INSERT INTO student(name, major) VALUES('jack', 'biology');
+INSERT INTO student(name, major) VALUES('jill', 'mathematics');
+INSERT INTO student(name, major) VALUES('hill', 'physics');
+select * from student;
+
+NOTE: Stay on the line where you want to execute the statement and execute it
+
+To update biology to bio-
+select * from student;
+UPDATE student
+SET major = 'Bio'
+WHERE major = 'Biology'
+
+Also-
+update student
+set major = 'biology'
+where major = 'bio' or major ='stats';
+
+Also-
+update student
+set name ='tom', major = 'undecided'
+where student_id=1;
+
+Also-
+update student
+set name ='tom', major = 'undecided';
+
+To delete rows-
+delete from student
+where student_id=5;
+
+Queries-
+
+Select * from student; -> all records
+select name from student; -> only name records
+select name,major from student; -> Only name and major records
+select student.name, student.major from student ; -> only name and major records but specifies which table
+select * from student order by name ; -> all records in alphabetical order of name
+select * from student order by major, student_id DESC; -> all records ordered by alphabetical order of major first, then descending order of student id
+Select * from student LIMIT 2; -> Limited only to 2 records
+select name,major from student where major=chemistry; 
