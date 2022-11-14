@@ -1,0 +1,44 @@
+AGGREGATE FUNCIONS-
+1. count
+2. sum
+3. avg
+4. max
+5. min
+
+SELECT avg(cost) from movies;
+SELECT sum(cost) from movies;
+SELECT max(tickets), min(tickets) from movies;
+
+Using Group by and Having clause: Show country and the sum of the salaries from the actors table group by the country with records more than 1 and
+role is supporting role in the table (add where clause when necessary at the end)-
+SELECT country, sum(salary) from actors where role='supporting' group by country having count(*)>1;
+
+CONSTRAINTS- Column and Table 
+1. NOT NULL - Used only as column constraint
+2. UNIQUE - Used in both
+3. Validations
+
+Create table promotions (id int, name varchar(50) NOT NULL, category varchar(15));
+Insert into promotions (id, category) values (3, 'merchandise'); -- Name is not given throws error since name cannot be null!!
+
+Creating a unique column constraint:
+Create table promotions (id int, name varchar(50) NOT NULL UNIQUE, category varchar(15));
+Insert into promotions (id, name, category) values (4, 'matinee', 'discount'); -- Unique value prevents duplicate values, throws an error: unique constraint violation promotions_name_key!!
+
+Creating a unique table constraint:
+Create table promotions (id int, name varchar(50) NOT NULL, category varchar(15), CONSTRAINT unique_name UNIQUE);
+Insert into promotions (id, name, category) values (4, 'matinee', 'discount');--Unique value prevents duplicate values, throws an error: unique constraint violation unique_name!!
+
+Apply to two columns:
+Create table promotions (id int, name varchar(50) NOT NULL, category varchar(15), CONSTRAINT unique_name UNIQUE (name, category));
+Insert into promotions (id, name, category) values (4, 'matinee', 'discount');--Unique value prevents duplicate values, throws an error: unique constraint violation unique_name!!
+
+Create table promotions (id int PRIMARY KEY, name varchar(50), category varchar(15));
+Insert into promotions (id, name, category) values(4, 'free shirt', 'merchandise') -- throws error if id=4 already exists since primary key is supposed to be unique
+
+Create table promotions (id int PRIMARY KEY, name varchar(50), category varchar(15));
+Insert into promotions (name, category) values('free shirt', 'merchandise') -- throws error since id is not given it cant be null.
+
+PRIMARY KEY, NOT NULL, UNIQUE
+Primary Key= When creating a table - It is defined only once per table
+NOT NULL + UNIQUE = When creating a table - It can be used multiple times in a table
