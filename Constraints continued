@@ -1,0 +1,11 @@
+Foreign Key constraint:
+Assume 2 tables- 
+Table 1 PROMOTIONS: ID, NAME, CATEGORY
+Table 2 MOVIES: ID, TITLE
+
+2 types of declaration:
+1. Column constraint:
+Create table promotions (id int PRIMARY KEY, movie_id int references movies(id), name varchar(50), category varchar(15)); -- Uses ID since mentioned
+Create table promotions (id int PRIMARY KEY, movie_id int references movies, name varchar(50), category varchar(15)); -- Uses primary key of movies table since nothing mentioned
+2. Table constraint:
+Create table promotions (id int PRIMARY KEY, movie_id int, name varchar(50), category varchar(15), foreign key (movie_id) references movies);
