@@ -1,0 +1,5 @@
+Download instnwnd.sql from the - Repo link:
+https://github.com/microsoft/sql-server-samples/tree/master/samples/databases/northwind-pubs
+
+Run the sql file in SQL Server Management Studio in your local server.
+The database Northwind should be created. Now it is ready to run the queries.
