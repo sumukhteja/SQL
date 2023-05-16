@@ -1,0 +1,122 @@
+--Top 30 Frequently Used SQL Queries: Public Database Utilized: NorthWind
+
+-- 1. Retrieve all records from the "Customers" table
+SELECT * FROM Customers;
+
+-- 2. Retrieve specific columns from the "Customers" table
+SELECT CustomerID, CompanyName, ContactName, ContactTitle, Address, City FROM Customers;
+
+-- 3. Filter records based on a condition from the "Customers" table
+SELECT * FROM Customers WHERE Condition;
+
+-- 4. Retrieve distinct values from the "City" column in the "Customers" table
+SELECT DISTINCT City FROM Customers;
+
+-- 5. Retrieve records sorted in ascending order based on the "CompanyName" column from the "Customers" table
+SELECT * FROM Customers ORDER BY CompanyName ASC;
+
+-- 6. Retrieve records sorted in descending order based on the "ContactName" column from the "Customers" table
+SELECT * FROM Customers ORDER BY ContactName DESC;
+
+-- 7. Retrieve records with a specific value in the "CustomerID" column
+SELECT * FROM Customers WHERE CustomerID = 'ALFKI';
+
+-- 8. Retrieve records with a NULL value in the "ContactTitle" column
+SELECT * FROM Customers WHERE ContactTitle IS NULL;
+
+-- 9. Retrieve records with values that start with 'A' in the "CompanyName" column
+SELECT * FROM Customers WHERE CompanyName LIKE 'A%';
+
+-- 10. Retrieve the count of distinct cities in the "Customers" table
+SELECT COUNT(DISTINCT City) FROM Customers;
+
+-- 11. Retrieve records with values that match any of the specified cities in the "City" column
+SELECT * FROM Customers WHERE City IN ('London', 'Paris', 'Berlin');
+
+-- 12. Retrieve records with values that do not match the specified city in the "City" column
+SELECT * FROM Customers WHERE City <> 'London';
+
+-- 13. Retrieve records with values that end with 'ville' in the "City" column
+SELECT * FROM Customers WHERE City LIKE '%ville';
+
+-- 14. Retrieve records with values that contain 'Co' in the "CompanyName" column
+SELECT * FROM Customers WHERE CompanyName LIKE '%Co%';
+
+-- 15. Retrieve records with values that are not NULL in the "ContactName" column
+SELECT * FROM Customers WHERE ContactName IS NOT NULL;
+
+-- 16. Retrieve records with values that are not 'Owner' in the "ContactTitle" column
+SELECT * FROM Customers WHERE ContactTitle <> 'Owner';
+
+-- 17. Retrieve records with values that are alphabetically between 'A' and 'M' in the "ContactName" column
+SELECT * FROM Customers WHERE ContactName BETWEEN 'A' AND 'M';
+
+-- 18. Retrieve records with values that match a specific pattern using regular expressions in the "CompanyName" column
+SELECT * FROM Customers WHERE CompanyName REGEXP 'pattern';
+
+-- 19. Retrieve records with values that are an exact match or have a specific value in the "Address" column
+SELECT * FROM Customers WHERE Address = '123 Main St' OR Address = '456 Elm St';
+
+-- 20. Retrieve records with values that have a specific number of characters in the "ContactName" column
+SELECT * FROM Customers WHERE LEN(ContactName) = 10;
+
+-- 21. Retrieve records with values that match a specific pattern using wildcards in the "City" column
+SELECT * FROM Customers WHERE City LIKE 'Lon%';
+
+-- 22. Retrieve records with values that contain a specific substring in the "CompanyName" column
+SELECT * FROM Customers WHERE CompanyName LIKE '%keyword%';
+
+-- 23. Retrieve records with values that are an exact match or contain a specific keyword in the "ContactTitle" column
+SELECT * FROM Customers WHERE ContactTitle = 'Sales';
+
+-- 24. Retrieve records with values that fall within a specific date range in the "OrderDate" column:
+SELECT * FROM Orders WHERE OrderDate BETWEEN '1996' AND '1997';
+
+-- 25. Retrieve records with values that match a specific pattern using regular expressions in the "ContactName" column
+SELECT * FROM Customers WHERE ContactName REGEXP '^J[a-z]+n$';
+
+-- 26. Retrieve records with values that are distinct and ordered in ascending order based on the "CompanyName" column
+SELECT DISTINCT CompanyName FROM Customers ORDER BY CompanyName ASC;
+
+-- 27. Retrieve records with values that are distinct and ordered in descending order based on the "City" column
+SELECT DISTINCT City FROM Customers ORDER BY City DESC;
+
+-- 28. Retrieve records with values that are within a specific range of customer IDs and sorted in descending order based on the "CustomerID" column:
+SELECT * FROM Customers WHERE CustomerID BETWEEN 'ALFKI' AND 'ANATR' ORDER BY CustomerID DESC;
+
+-- 29. Retrieve the count of records grouped by the "Country" column
+SELECT Country, COUNT(*) AS TotalCount FROM Customers GROUP BY Country;
+
+-- 30. Retrieve records with values that have a specific length in the "ContactName" column and limit the result to the top 10 rows
+SELECT TOP 10 * FROM Customers WHERE LEN(ContactName) = 10;
+
+--Top 10 Frequently Used subqueries:
+-- 1. Retrieve customers who have placed orders
+SELECT * FROM Customers WHERE CustomerID IN (SELECT DISTINCT CustomerID FROM Orders);
+
+-- 2. Retrieve orders placed by customers from a specific country
+SELECT * FROM Orders WHERE CustomerID IN (SELECT CustomerID FROM Customers WHERE Country = 'CountryName');
+
+-- 3. Retrieve customers who have not placed any orders
+SELECT * FROM Customers WHERE CustomerID NOT IN (SELECT DISTINCT CustomerID FROM Orders);
+
+-- 4. Retrieve products with a price higher than the average price
+SELECT * FROM Products WHERE Price > (SELECT AVG(Price) FROM Products);
+
+-- 5. Retrieve orders with a total amount greater than the average order amount
+SELECT * FROM Orders WHERE TotalAmount > (SELECT AVG(TotalAmount) FROM Orders);
+
+-- 6. Retrieve customers who have placed orders in a specific year
+SELECT * FROM Customers WHERE CustomerID IN (SELECT DISTINCT CustomerID FROM Orders WHERE YEAR(OrderDate) = 2022);
+
+-- 7. Retrieve orders with more than a certain number of products
+SELECT * FROM Orders WHERE OrderID IN (SELECT OrderID FROM OrderDetails GROUP BY OrderID HAVING COUNT(ProductID) > 5);
+
+-- 8. Retrieve customers with a total order amount greater than a specified value
+SELECT * FROM Customers WHERE (SELECT SUM(TotalAmount) FROM Orders WHERE Orders.CustomerID = Customers.CustomerID) > 1000;
+
+-- 9. Retrieve products that have been ordered more than a specific number of times
+SELECT * FROM Products WHERE ProductID IN (SELECT ProductID FROM OrderDetails GROUP BY ProductID HAVING COUNT(OrderID) > 10);
+
+-- 10. Retrieve customers who have placed orders in a specific month and year
+SELECT * FROM Customers WHERE CustomerID IN (SELECT DISTINCT CustomerID FROM Orders WHERE MONTH(OrderDate) = 5 AND YEAR(OrderDate) = 2023);
