@@ -1,0 +1,138 @@
+--Public Database utilized: NorthWind (Set up in local SSMS)
+
+--1. Create a stored procedure named "GetOrderDetails"
+CREATE PROCEDURE GetOrderDetails
+    @OrderId INT
+AS
+BEGIN
+    -- Add more logic here    
+    SELECT od.OrderID, od.ProductID, p.ProductName, od.Quantity, od.UnitPrice, od.Discount
+    FROM [Order Details] od
+    JOIN Products p ON od.ProductID = p.ProductID
+    WHERE od.OrderID = @OrderId
+END
+
+-- Call the stored procedure "GetOrderDetails" with OrderID = 10248
+EXEC GetOrderDetails @OrderId = 10248
+
+--2. Create 3 tables: Lsecurity, reset_password, security.dba_users
+
+-- Create the "security.dba_users" table
+CREATE SCHEMA security;
+
+CREATE TABLE security.dba_users (
+    user_id INT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    role VARCHAR(50),
+    last_login DATETIME
+);
+
+-- Create the "lsecurity" table
+CREATE TABLE lsecurity (
+    employee_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    date_of_birth DATE,
+    address VARCHAR(100),
+    department VARCHAR(50),
+    position VARCHAR(50),
+    employment_type VARCHAR(20),
+    contract_start_date DATE,
+    contract_end_date DATE,
+    salary DECIMAL(10, 2),
+    email VARCHAR(100),
+    phone_number VARCHAR(20),
+    emergency_contact_name VARCHAR(50),
+    emergency_contact_number VARCHAR(20)
+);
+
+-- Create the "reset_password" table
+CREATE TABLE reset_password (
+    user_id INT PRIMARY KEY,
+    reset_token VARCHAR(100),
+    reset_token_expiry DATETIME
+);
+
+--3. Generate random data for 100 employees
+WITH random_data AS (
+    SELECT 
+        ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS employee_id,
+        CONCAT('First', ROW_NUMBER() OVER (ORDER BY (SELECT NULL))) AS first_name,
+        CONCAT('Last', ROW_NUMBER() OVER (ORDER BY (SELECT NULL))) AS last_name,
+        DATEADD(YEAR, -FLOOR(RAND(CHECKSUM(NEWID())) * 30), GETDATE()) AS date_of_birth,
+        CONCAT('Address', ROW_NUMBER() OVER (ORDER BY (SELECT NULL))) AS address,
+        CONCAT('Department', FLOOR(RAND(CHECKSUM(NEWID())) * 5) + 1) AS department,
+        CONCAT('Position', FLOOR(RAND(CHECKSUM(NEWID())) * 5) + 1) AS position,
+        CASE WHEN FLOOR(RAND(CHECKSUM(NEWID())) * 2) = 0 THEN 'Contract' ELSE 'Full Time' END AS employment_type,
+        DATEADD(DAY, -FLOOR(RAND(CHECKSUM(NEWID())) * 365), GETDATE()) AS contract_start_date,
+        DATEADD(DAY, FLOOR(RAND(CHECKSUM(NEWID())) * 365), DATEADD(DAY, -FLOOR(RAND(CHECKSUM(NEWID())) * 365), GETDATE())) AS contract_end_date,
+        ROUND(RAND(CHECKSUM(NEWID())) * 100000, 2) AS salary,
+        CONCAT('email', ROW_NUMBER() OVER (ORDER BY (SELECT NULL))) + '@example.com' AS email,
+        CONCAT('123456789', FLOOR(RAND(CHECKSUM(NEWID())) * 1000000)) AS phone_number,
+        CONCAT('Emergency Contact', ROW_NUMBER() OVER (ORDER BY (SELECT NULL))) AS emergency_contact_name,
+        CONCAT('987654321', FLOOR(RAND(CHECKSUM(NEWID())) * 1000000)) AS emergency_contact_number
+    FROM
+        sys.all_columns ac1
+        CROSS JOIN sys.all_columns ac2
+)
+-- Insert the random data into the "lsecurity" table
+INSERT INTO lsecurity (
+    employee_id,
+    first_name,
+    last_name,
+    date_of_birth,
+    address,
+    department,
+    position,
+    employment_type,
+    contract_start_date,
+    contract_end_date,
+    salary,
+    email,
+    phone_number,
+    emergency_contact_name,
+    emergency_contact_number
+)
+SELECT TOP 100 * FROM random_data;
+
+-- Generate random data for reset_password table
+WITH random_reset_password AS (
+    SELECT 
+        ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS user_id,
+        CONCAT('token', ROW_NUMBER() OVER (ORDER BY (SELECT NULL))) AS reset_token,
+        DATEADD(HOUR, FLOOR(RAND(CHECKSUM(NEWID())) * 48), GETDATE()) AS reset_token_expiry
+    FROM
+        sys.all_columns ac1
+        CROSS JOIN sys.all_columns ac2
+)
+-- Insert the random data into the "reset_password" table
+INSERT INTO reset_password (
+    user_id,
+    reset_token,
+    reset_token_expiry
+)
+SELECT TOP 100 * FROM random_reset_password;
+
+
+-- Generate random data for security.dba_users table
+WITH random_dba_users AS (
+    SELECT 
+        ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS user_id,
+        CONCAT('User', ROW_NUMBER() OVER (ORDER BY (SELECT NULL))) AS username,
+        CONCAT('Pass', ROW_NUMBER() OVER (ORDER BY (SELECT NULL))) AS password,
+        CONCAT('Role', FLOOR(RAND(CHECKSUM(NEWID())) * 5) + 1) AS role,
+        DATEADD(HOUR, -FLOOR(RAND(CHECKSUM(NEWID())) * 1000), GETDATE()) AS last_login
+    FROM
+        sys.all_columns ac1
+        CROSS JOIN sys.all_columns ac2
+)
+-- Insert the random data into the "security.dba_users" table
+INSERT INTO security.dba_users (
+    user_id,
+    username,
+    password,
+    role,
+    last_login
+)
+SELECT TOP 100 * FROM random_dba_users;
